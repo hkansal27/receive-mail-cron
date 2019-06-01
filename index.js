@@ -9,7 +9,8 @@ app = express();
 var config = {
     imap: {
         user: 'himanshukansal.jiit@gmail.com',
-        password: '**********',
+        // have to enter the respective password
+        password: '*********',
         host: 'imap.gmail.com',
         port: 993,
         tls: true,
@@ -34,8 +35,9 @@ cron.schedule('*/30 * * * * *', function () {
                 var mailList = results.map(function (res) {
                     return res.parts.filter(function (part) {
                         return part.which === 'HEADER';
-                    });
+                    })[0].body;
                 });
+
                 console.log(mailList);
             });
         });
